@@ -41,6 +41,7 @@
 
   <ItemGroup>
     <Compile Include="Db.cs" />
+    <Compile Include="AuditoriumDal.cs" />
     <Compile Include="MovieDal.cs" />
     <Compile Include="ReportDal.cs" />
     <Compile Include="ShowtimeDal.cs" />

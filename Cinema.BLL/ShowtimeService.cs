@@ -35,6 +35,27 @@ namespace Cinema.BLL
         }
 
         /// <summary>
+        /// Retrieves showtime details from the reporting view.
+        /// </summary>
+        public ServiceResult<DataTable> GetDetails()
+        {
+            try
+            {
+                var details = _showtimeDal.GetDetails();
+                var message = details.Rows.Count == 0 ? "Không có suất chiếu nào." : "Lấy danh sách suất chiếu thành công.";
+                return ServiceResult<DataTable>.Ok(details, message);
+            }
+            catch (ArgumentException ex)
+            {
+                return ServiceResult<DataTable>.Fail(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ServiceResult<DataTable>.Fail("Có lỗi khi truy cập dữ liệu. Vui lòng thử lại sau.");
+            }
+        }
+
+        /// <summary>
         /// Retrieves a showtime by identifier.
         /// </summary>
         public ServiceResult<Showtime> GetById(int id)
@@ -75,6 +96,7 @@ namespace Cinema.BLL
                 Guard.ValidId(showtime.MovieId, "MovieId");
                 Guard.ValidId(showtime.AuditoriumId, "AuditoriumId");
                 Guard.PositiveDecimal(showtime.BasePrice, "BasePrice");
+
                 if (showtime.StartTime == default(DateTime))
                 {
                     throw new ArgumentException("StartTime không hợp lệ.", nameof(showtime.StartTime));
@@ -114,6 +136,7 @@ namespace Cinema.BLL
                 Guard.ValidId(showtime.MovieId, "MovieId");
                 Guard.ValidId(showtime.AuditoriumId, "AuditoriumId");
                 Guard.PositiveDecimal(showtime.BasePrice, "BasePrice");
+
                 if (showtime.StartTime == default(DateTime))
                 {
                     throw new ArgumentException("StartTime không hợp lệ.", nameof(showtime.StartTime));

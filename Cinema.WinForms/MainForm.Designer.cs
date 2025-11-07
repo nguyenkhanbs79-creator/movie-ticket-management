@@ -105,7 +105,7 @@ namespace Cinema.WinForms
             this.Controls.Add(this.menuStripMain);
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen";
             this.Text = "Cinema — Main";
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
