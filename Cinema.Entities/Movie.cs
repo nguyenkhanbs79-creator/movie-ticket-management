@@ -1,65 +1,57 @@
-using System;
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B3E3A977-5E2C-4AF3-8BA8-7C8A1A10DBE4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cinema.Entities</RootNamespace>
+    <AssemblyName>Cinema.Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <LangVersion>10.0</LangVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
 
-namespace Cinema.Entities
-{
-    public class Movie : BaseEntity
-    {
-        private string _title = string.Empty;
-        private string? _genre;
-        private int _duration;
-        private string? _ageRating;
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
 
-        public Movie()
-        {
-        }
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
 
-        public Movie(int id, string title, int duration, string? genre = null, string? ageRating = null)
-            : base(id)
-        {
-            Title = title;
-            Duration = duration;
-            Genre = genre;
-            AgeRating = ageRating;
-        }
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
 
-        public string Title
-        {
-            get => _title;
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Title is required.", nameof(value));
-                }
+  <ItemGroup>
+    <Compile Include="Auditorium.cs" />
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="Booking.cs" />
+    <Compile Include="BookingItem.cs" />
+    <Compile Include="FlatPricing.cs" />
+    <Compile Include="IPricingStrategy.cs" />
+    <Compile Include="Movie.cs" />
+    <Compile Include="PeakHourPricing.cs" />
+    <Compile Include="Person.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Showtime.cs" />
+    <Compile Include="User.cs" />
+  </ItemGroup>
 
-                _title = value.Trim();
-            }
-        }
-
-        public string? Genre
-        {
-            get => _genre;
-            set => _genre = string.IsNullOrWhiteSpace(value) ? null : value.Trim();
-        }
-
-        public int Duration
-        {
-            get => _duration;
-            set
-            {
-                if (value <= 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), "Duration must be greater than zero.");
-                }
-
-                _duration = value;
-            }
-        }
-
-        public string? AgeRating
-        {
-            get => _ageRating;
-            set => _ageRating = string.IsNullOrWhiteSpace(value) ? null : value.Trim();
-        }
-    }
-}
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

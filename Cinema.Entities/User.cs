@@ -24,9 +24,7 @@ namespace Cinema.Entities
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                {
                     throw new ArgumentException("Username is required.", nameof(value));
-                }
 
                 _username = value.Trim();
             }
@@ -38,9 +36,7 @@ namespace Cinema.Entities
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                {
                     throw new ArgumentException("Password hash is required.", nameof(value));
-                }
 
                 _passwordHash = value;
             }

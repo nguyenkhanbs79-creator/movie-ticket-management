@@ -16,10 +16,10 @@ namespace Cinema.Entities
         public Showtime(int id, int movieId, int auditoriumId, DateTime startTime, decimal basePrice)
             : base(id)
         {
-            MovieId = movieId;
-            AuditoriumId = auditoriumId;
-            StartTime = startTime;
-            BasePrice = basePrice;
+                MovieId = movieId;
+                AuditoriumId = auditoriumId;
+                StartTime = startTime;
+                BasePrice = basePrice;
         }
 
         public int MovieId
@@ -28,10 +28,7 @@ namespace Cinema.Entities
             set
             {
                 if (value <= 0)
-                {
                     throw new ArgumentOutOfRangeException(nameof(value), "MovieId must be greater than zero.");
-                }
-
                 _movieId = value;
             }
         }
@@ -42,10 +39,7 @@ namespace Cinema.Entities
             set
             {
                 if (value <= 0)
-                {
                     throw new ArgumentOutOfRangeException(nameof(value), "AuditoriumId must be greater than zero.");
-                }
-
                 _auditoriumId = value;
             }
         }
@@ -56,10 +50,7 @@ namespace Cinema.Entities
             set
             {
                 if (value == default)
-                {
                     throw new ArgumentException("Start time must be a valid date.", nameof(value));
-                }
-
                 _startTime = value;
             }
         }
@@ -70,10 +61,7 @@ namespace Cinema.Entities
             set
             {
                 if (value <= 0)
-                {
                     throw new ArgumentOutOfRangeException(nameof(value), "Base price must be greater than zero.");
-                }
-
                 _basePrice = decimal.Round(value, 2, MidpointRounding.AwayFromZero);
             }
         }
