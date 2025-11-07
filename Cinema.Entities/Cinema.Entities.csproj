@@ -13,6 +13,7 @@
     <LangVersion>10.0</LangVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -22,6 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -30,15 +32,26 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Core" />
   </ItemGroup>
+
   <ItemGroup>
     <Compile Include="Auditorium.cs" />
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="Booking.cs" />
+    <Compile Include="BookingItem.cs" />
+    <Compile Include="FlatPricing.cs" />
+    <Compile Include="IPricingStrategy.cs" />
     <Compile Include="Movie.cs" />
+    <Compile Include="PeakHourPricing.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Showtime.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
