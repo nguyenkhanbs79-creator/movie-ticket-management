@@ -96,6 +96,7 @@ namespace Cinema.BLL
                 Guard.ValidId(showtime.MovieId, "MovieId");
                 Guard.ValidId(showtime.AuditoriumId, "AuditoriumId");
                 Guard.PositiveDecimal(showtime.BasePrice, "BasePrice");
+
                 if (showtime.StartTime == default(DateTime))
                 {
                     throw new ArgumentException("StartTime không hợp lệ.", nameof(showtime.StartTime));
@@ -135,6 +136,7 @@ namespace Cinema.BLL
                 Guard.ValidId(showtime.MovieId, "MovieId");
                 Guard.ValidId(showtime.AuditoriumId, "AuditoriumId");
                 Guard.PositiveDecimal(showtime.BasePrice, "BasePrice");
+
                 if (showtime.StartTime == default(DateTime))
                 {
                     throw new ArgumentException("StartTime không hợp lệ.", nameof(showtime.StartTime));

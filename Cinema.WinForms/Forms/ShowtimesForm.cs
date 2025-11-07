@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using System.Drawing;
 using System.Windows.Forms;
 using Cinema.BLL;
 using Cinema.Entities;
@@ -22,6 +23,12 @@ namespace Cinema.WinForms.Forms
         public ShowtimesForm()
         {
             InitializeComponent();
+
+            // Cấu hình cơ bản của Form (giữ từ nhánh main)
+            Text = "Showtimes";
+            StartPosition = FormStartPosition.CenterParent;
+            ClientSize = new Size(800, 600);
+
             Load += ShowtimesForm_Load;
         }
 

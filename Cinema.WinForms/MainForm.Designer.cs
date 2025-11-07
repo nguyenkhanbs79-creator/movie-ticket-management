@@ -1,3 +1,7 @@
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
+
 namespace Cinema.WinForms
 {
     partial class MainForm
@@ -5,13 +9,13 @@ namespace Cinema.WinForms
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.MenuStrip menuStripMain = null!;
-        private System.Windows.Forms.ToolStripMenuItem menuMovies = null!;
-        private System.Windows.Forms.ToolStripMenuItem menuShowtimes = null!;
-        private System.Windows.Forms.ToolStripMenuItem menuSearch = null!;
-        private System.Windows.Forms.ToolStripMenuItem menuReport = null!;
-        private System.Windows.Forms.ToolStripMenuItem menuLogout = null!;
+        private IContainer? components = null;
+        private MenuStrip menuStripMain = null!;
+        private ToolStripMenuItem menuMovies = null!;
+        private ToolStripMenuItem menuShowtimes = null!;
+        private ToolStripMenuItem menuSearch = null!;
+        private ToolStripMenuItem menuReport = null!;
+        private ToolStripMenuItem menuLogout = null!;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -23,7 +27,6 @@ namespace Cinema.WinForms
             {
                 components.Dispose();
             }
-
             base.Dispose(disposing);
         }
 
@@ -102,7 +105,7 @@ namespace Cinema.WinForms
             this.Controls.Add(this.menuStripMain);
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen";
             this.Text = "Cinema — Main";
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();

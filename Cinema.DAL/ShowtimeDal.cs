@@ -73,9 +73,10 @@ namespace Cinema.DAL
             try
             {
                 using (var connection = db.Open())
-                using (var command = new SqlCommand(@"INSERT INTO Showtimes (MovieId, AuditoriumId, StartTime, BasePrice)
-VALUES (@MovieId, @AuditoriumId, @StartTime, @BasePrice);
-SELECT CAST(SCOPE_IDENTITY() AS int);", connection))
+                using (var command = new SqlCommand(
+                    @"INSERT INTO Showtimes (MovieId, AuditoriumId, StartTime, BasePrice)
+                      VALUES (@MovieId, @AuditoriumId, @StartTime, @BasePrice);
+                      SELECT CAST(SCOPE_IDENTITY() AS int);", connection))
                 {
                     command.Parameters.AddWithValue("@MovieId", showtime.MovieId);
                     command.Parameters.AddWithValue("@AuditoriumId", showtime.AuditoriumId);
@@ -104,12 +105,13 @@ SELECT CAST(SCOPE_IDENTITY() AS int);", connection))
             try
             {
                 using (var connection = db.Open())
-                using (var command = new SqlCommand(@"UPDATE Showtimes
-SET MovieId = @MovieId,
-    AuditoriumId = @AuditoriumId,
-    StartTime = @StartTime,
-    BasePrice = @BasePrice
-WHERE Id = @Id", connection))
+                using (var command = new SqlCommand(
+                    @"UPDATE Showtimes
+                      SET MovieId = @MovieId,
+                          AuditoriumId = @AuditoriumId,
+                          StartTime = @StartTime,
+                          BasePrice = @BasePrice
+                      WHERE Id = @Id", connection))
                 {
                     command.Parameters.AddWithValue("@MovieId", showtime.MovieId);
                     command.Parameters.AddWithValue("@AuditoriumId", showtime.AuditoriumId);
