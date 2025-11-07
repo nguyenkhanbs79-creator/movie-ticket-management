@@ -1,3 +1,7 @@
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
+
 namespace Cinema.WinForms
 {
     partial class MainForm
@@ -5,17 +9,18 @@ namespace Cinema.WinForms
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.MenuStrip menuStripMain = null!;
-        private System.Windows.Forms.ToolStripMenuItem menuMovies = null!;
-        private System.Windows.Forms.ToolStripMenuItem menuShowtimes = null!;
-        private System.Windows.Forms.ToolStripMenuItem menuSearch = null!;
-        private System.Windows.Forms.ToolStripMenuItem menuReport = null!;
-        private System.Windows.Forms.ToolStripMenuItem menuLogout = null!;
+        private IContainer? components = null;
+        private MenuStrip menuStripMain = null!;
+        private ToolStripMenuItem menuMovies = null!;
+        private ToolStripMenuItem menuShowtimes = null!;
+        private ToolStripMenuItem menuSearch = null!;
+        private ToolStripMenuItem menuReport = null!;
+        private ToolStripMenuItem menuLogout = null!;
 
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -27,6 +32,10 @@ namespace Cinema.WinForms
 
         #region Windows Form Designer generated code
 
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
