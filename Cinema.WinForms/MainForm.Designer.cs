@@ -6,17 +6,16 @@ namespace Cinema.WinForms
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.MenuStrip menuStrip1 = null!;
-        private System.Windows.Forms.ToolStripMenuItem moviesToolStripMenuItem = null!;
-        private System.Windows.Forms.ToolStripMenuItem showtimesToolStripMenuItem = null!;
-        private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem = null!;
-        private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem = null!;
-        private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem = null!;
+        private System.Windows.Forms.MenuStrip menuStripMain = null!;
+        private System.Windows.Forms.ToolStripMenuItem menuMovies = null!;
+        private System.Windows.Forms.ToolStripMenuItem menuShowtimes = null!;
+        private System.Windows.Forms.ToolStripMenuItem menuSearch = null!;
+        private System.Windows.Forms.ToolStripMenuItem menuReport = null!;
+        private System.Windows.Forms.ToolStripMenuItem menuLogout = null!;
 
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -28,79 +27,79 @@ namespace Cinema.WinForms
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.moviesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showtimesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
+            this.menuStripMain = new System.Windows.Forms.MenuStrip();
+            this.menuMovies = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuShowtimes = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSearch = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuReport = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuLogout = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // menuStripMain
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.moviesToolStripMenuItem,
-            this.showtimesToolStripMenuItem,
-            this.searchToolStripMenuItem,
-            this.reportToolStripMenuItem,
-            this.logoutToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(984, 33);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStripMain.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuMovies,
+            this.menuShowtimes,
+            this.menuSearch,
+            this.menuReport,
+            this.menuLogout});
+            this.menuStripMain.Location = new System.Drawing.Point(0, 0);
+            this.menuStripMain.Name = "menuStripMain";
+            this.menuStripMain.Size = new System.Drawing.Size(1000, 33);
+            this.menuStripMain.TabIndex = 0;
+            this.menuStripMain.Text = "menuStripMain";
             // 
-            // moviesToolStripMenuItem
+            // menuMovies
             // 
-            this.moviesToolStripMenuItem.Name = "moviesToolStripMenuItem";
-            this.moviesToolStripMenuItem.Size = new System.Drawing.Size(85, 29);
-            this.moviesToolStripMenuItem.Text = "Movies";
+            this.menuMovies.Name = "menuMovies";
+            this.menuMovies.Size = new System.Drawing.Size(85, 29);
+            this.menuMovies.Text = "Movies";
+            this.menuMovies.Click += new System.EventHandler(this.menuMovies_Click);
             // 
-            // showtimesToolStripMenuItem
+            // menuShowtimes
             // 
-            this.showtimesToolStripMenuItem.Name = "showtimesToolStripMenuItem";
-            this.showtimesToolStripMenuItem.Size = new System.Drawing.Size(110, 29);
-            this.showtimesToolStripMenuItem.Text = "Showtimes";
+            this.menuShowtimes.Name = "menuShowtimes";
+            this.menuShowtimes.Size = new System.Drawing.Size(110, 29);
+            this.menuShowtimes.Text = "Showtimes";
+            this.menuShowtimes.Click += new System.EventHandler(this.menuShowtimes_Click);
             // 
-            // searchToolStripMenuItem
+            // menuSearch
             // 
-            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(82, 29);
-            this.searchToolStripMenuItem.Text = "Search";
+            this.menuSearch.Name = "menuSearch";
+            this.menuSearch.Size = new System.Drawing.Size(82, 29);
+            this.menuSearch.Text = "Search";
+            this.menuSearch.Click += new System.EventHandler(this.menuSearch_Click);
             // 
-            // reportToolStripMenuItem
+            // menuReport
             // 
-            this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
-            this.reportToolStripMenuItem.Size = new System.Drawing.Size(84, 29);
-            this.reportToolStripMenuItem.Text = "Report";
+            this.menuReport.Name = "menuReport";
+            this.menuReport.Size = new System.Drawing.Size(84, 29);
+            this.menuReport.Text = "Report";
+            this.menuReport.Click += new System.EventHandler(this.menuReport_Click);
             // 
-            // logoutToolStripMenuItem
+            // menuLogout
             // 
-            this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(88, 29);
-            this.logoutToolStripMenuItem.Text = "Logout";
+            this.menuLogout.Name = "menuLogout";
+            this.menuLogout.Size = new System.Drawing.Size(88, 29);
+            this.menuLogout.Text = "Logout";
+            this.menuLogout.Click += new System.EventHandler(this.menuLogout_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 661);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.ClientSize = new System.Drawing.Size(1000, 700);
+            this.Controls.Add(this.menuStripMain);
+            this.MainMenuStrip = this.menuStripMain;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Cinema - Main";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.Text = "Cinema — Main";
+            this.menuStripMain.ResumeLayout(false);
+            this.menuStripMain.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
