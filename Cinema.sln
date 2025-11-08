@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.BLL", "Cinema.BLL\Ci
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.WinForms", "Cinema.WinForms\Cinema.WinForms.csproj", "{16AC2E8A-6F05-4F4D-91EC-78A4AB0B90F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Tests", "Cinema.Tests\Cinema.Tests.csproj", "{A1D8B3D0-6F96-4A7F-A6DE-FA2F5C48F1FA}"
+EndProject
 Global
 GlobalSection(SolutionConfigurationPlatforms) = preSolution
 Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ GlobalSection(ProjectConfigurationPlatforms) = postSolution
 {16AC2E8A-6F05-4F4D-91EC-78A4AB0B90F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 {16AC2E8A-6F05-4F4D-91EC-78A4AB0B90F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 {16AC2E8A-6F05-4F4D-91EC-78A4AB0B90F7}.Release|Any CPU.Build.0 = Release|Any CPU
+{A1D8B3D0-6F96-4A7F-A6DE-FA2F5C48F1FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+{A1D8B3D0-6F96-4A7F-A6DE-FA2F5C48F1FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+{A1D8B3D0-6F96-4A7F-A6DE-FA2F5C48F1FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+{A1D8B3D0-6F96-4A7F-A6DE-FA2F5C48F1FA}.Release|Any CPU.Build.0 = Release|Any CPU
 EndGlobalSection
 GlobalSection(SolutionProperties) = preSolution
 HideSolutionNode = FALSE

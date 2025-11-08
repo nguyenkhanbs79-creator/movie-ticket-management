@@ -1,6 +1,4 @@
 using System;
-using System.Security.Cryptography;
-using System.Text;
 using System.Windows.Forms;
 using Cinema.BLL;
 using Cinema.Entities;
@@ -37,8 +35,7 @@ namespace Cinema.WinForms.Forms
 
             try
             {
-                var passwordHash = Sha256Hex(password);
-                var result = _authService.Login(username, passwordHash);
+                var result = _authService.Login(username, password);
                 if (result.Success && result.Data != null)
                 {
                     Hide();
@@ -59,22 +56,6 @@ namespace Cinema.WinForms.Forms
             catch (Exception ex)
             {
                 MessageBox.Show("Đã xảy ra lỗi: " + ex.Message, "Đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private static string Sha256Hex(string input)
-        {
-            using (var sha = SHA256.Create())
-            {
-                var bytes = Encoding.UTF8.GetBytes(input ?? string.Empty);
-                var hash = sha.ComputeHash(bytes);
-                var builder = new StringBuilder(hash.Length * 2);
-                foreach (var b in hash)
-                {
-                    builder.Append(b.ToString("x2"));
-                }
-
-                return builder.ToString();
             }
         }
 

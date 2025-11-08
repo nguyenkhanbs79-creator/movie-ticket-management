@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Cinema.Entities;
@@ -8,16 +7,11 @@ namespace Cinema.DAL
 {
     public class UserDal
     {
-        public User Login(string username, string passwordHash)
+        public User? GetByUsername(string username)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
                 throw new ArgumentException("Username is required.", nameof(username));
-            }
-
-            if (string.IsNullOrWhiteSpace(passwordHash))
-            {
-                throw new ArgumentException("Password hash is required.", nameof(passwordHash));
             }
 
             var db = new Db();
@@ -25,10 +19,9 @@ namespace Cinema.DAL
             try
             {
                 using (var connection = db.Open())
-                using (var command = new SqlCommand("SELECT Id, Username, PasswordHash, FullName, Email, Phone FROM Users WHERE Username = @u AND PasswordHash = @p", connection))
+                using (var command = new SqlCommand("SELECT Id, Username, PasswordHash, PasswordKdf, FullName, Email, Phone FROM Users WHERE Username = @u", connection))
                 {
                     command.Parameters.AddWithValue("@u", username);
-                    command.Parameters.AddWithValue("@p", passwordHash);
 
                     using (var reader = command.ExecuteReader())
                     {
@@ -47,27 +40,64 @@ namespace Cinema.DAL
             return null;
         }
 
+        public void UpdatePasswordCredential(int userId, string passwordCredential)
+        {
+            if (userId <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(userId));
+            }
+
+            if (string.IsNullOrWhiteSpace(passwordCredential))
+            {
+                throw new ArgumentException("Password credential is required.", nameof(passwordCredential));
+            }
+
+            var db = new Db();
+
+            try
+            {
+                using (var connection = db.Open())
+                using (var command = new SqlCommand("UPDATE Users SET PasswordKdf = @kdf WHERE Id = @id", connection))
+                {
+                    command.Parameters.AddWithValue("@kdf", passwordCredential);
+                    command.Parameters.AddWithValue("@id", userId);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Database error: " + ex.Message, ex);
+            }
+        }
+
         private static User MapUser(IDataRecord record)
         {
-            var user = new User();
-            user.Id = record.GetInt32(record.GetOrdinal("Id"));
-            user.Username = record.GetString(record.GetOrdinal("Username"));
-            user.PasswordHash = record.GetString(record.GetOrdinal("PasswordHash"));
-            if (!record.IsDBNull(record.GetOrdinal("FullName")))
+            var user = new User
             {
-                user.FullName = record.GetString(record.GetOrdinal("FullName"));
+                Id = record.GetInt32(record.GetOrdinal("Id")),
+                Username = record.GetString(record.GetOrdinal("Username")),
+                FullName = record.IsDBNull(record.GetOrdinal("FullName")) ? "Unknown" : record.GetString(record.GetOrdinal("FullName")),
+                Email = record.IsDBNull(record.GetOrdinal("Email")) ? null : record.GetString(record.GetOrdinal("Email")),
+                Phone = record.IsDBNull(record.GetOrdinal("Phone")) ? null : record.GetString(record.GetOrdinal("Phone"))
+            };
+
+            if (!record.IsDBNull(record.GetOrdinal("PasswordHash")))
+            {
+                user.PasswordHash = record.GetString(record.GetOrdinal("PasswordHash"));
             }
-            else
+
+            int passwordKdfOrdinal;
+            try
             {
-                user.FullName = "Unknown";
+                passwordKdfOrdinal = record.GetOrdinal("PasswordKdf");
+                if (!record.IsDBNull(passwordKdfOrdinal))
+                {
+                    user.PasswordKdf = record.GetString(passwordKdfOrdinal);
+                }
             }
-            if (!record.IsDBNull(record.GetOrdinal("Email")))
+            catch (IndexOutOfRangeException)
             {
-                user.Email = record.GetString(record.GetOrdinal("Email"));
-            }
-            if (!record.IsDBNull(record.GetOrdinal("Phone")))
-            {
-                user.Phone = record.GetString(record.GetOrdinal("Phone"));
+                user.PasswordKdf = null;
             }
 
             return user;
