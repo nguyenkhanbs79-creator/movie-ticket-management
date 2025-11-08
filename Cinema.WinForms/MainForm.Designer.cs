@@ -9,13 +9,13 @@ namespace Cinema.WinForms
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer? components = null;
-        private MenuStrip menuStripMain = null!;
-        private ToolStripMenuItem menuMovies = null!;
-        private ToolStripMenuItem menuShowtimes = null!;
-        private ToolStripMenuItem menuSearch = null!;
-        private ToolStripMenuItem menuReport = null!;
-        private ToolStripMenuItem menuLogout = null!;
+        private IContainer components = null;
+        private MenuStrip menuStripMain;
+        private ToolStripMenuItem menuMovies;
+        private ToolStripMenuItem menuShowtimes;
+        private ToolStripMenuItem menuSearch;
+        private ToolStripMenuItem menuReport;
+        private ToolStripMenuItem menuLogout;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -105,7 +105,7 @@ namespace Cinema.WinForms
             this.Controls.Add(this.menuStripMain);
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cinema — Main";
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();

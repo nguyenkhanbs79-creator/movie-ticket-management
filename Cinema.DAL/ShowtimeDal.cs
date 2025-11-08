@@ -1,221 +1,60 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using Cinema.Entities;
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DB15B8D6-7482-4C3F-A234-3DDAFD2A72C6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cinema.DAL</RootNamespace>
+    <AssemblyName>Cinema.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <LangVersion>10.0</LangVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
 
-namespace Cinema.DAL
-{
-    public class ShowtimeDal
-    {
-        public List<Showtime> GetAll()
-        {
-            var showtimes = new List<Showtime>();
-            var db = new Db();
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
 
-            try
-            {
-                using (var connection = db.Open())
-                using (var command = new SqlCommand("SELECT Id, MovieId, AuditoriumId, StartTime, BasePrice FROM Showtimes ORDER BY StartTime", connection))
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        showtimes.Add(MapShowtime(reader));
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Database error: " + ex.Message, ex);
-            }
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
 
-            return showtimes;
-        }
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
 
-        public Showtime GetById(int id)
-        {
-            var db = new Db();
+  <ItemGroup>
+    <Compile Include="Db.cs" />
+    <Compile Include="AuditoriumDal.cs" />
+    <Compile Include="MovieDal.cs" />
+    <Compile Include="ReportDal.cs" />
+    <Compile Include="ShowtimeDal.cs" />
+    <Compile Include="UserDal.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
 
-            try
-            {
-                using (var connection = db.Open())
-                using (var command = new SqlCommand("SELECT Id, MovieId, AuditoriumId, StartTime, BasePrice FROM Showtimes WHERE Id = @Id", connection))
-                {
-                    command.Parameters.AddWithValue("@Id", id);
+  <ItemGroup>
+    <ProjectReference Include="..\Cinema.Entities\Cinema.Entities.csproj">
+      <Project>{B3E3A977-5E2C-4AF3-8BA8-7C8A1A10DBE4}</Project>
+      <Name>Cinema.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
 
-                    using (var reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            return MapShowtime(reader);
-                        }
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Database error: " + ex.Message, ex);
-            }
-
-            return null;
-        }
-
-        public int Insert(Showtime showtime)
-        {
-            if (showtime == null)
-            {
-                throw new ArgumentNullException(nameof(showtime));
-            }
-
-            var db = new Db();
-
-            try
-            {
-                using (var connection = db.Open())
-                using (var command = new SqlCommand(
-                    @"INSERT INTO Showtimes (MovieId, AuditoriumId, StartTime, BasePrice)
-                      VALUES (@MovieId, @AuditoriumId, @StartTime, @BasePrice);
-                      SELECT CAST(SCOPE_IDENTITY() AS int);", connection))
-                {
-                    command.Parameters.AddWithValue("@MovieId", showtime.MovieId);
-                    command.Parameters.AddWithValue("@AuditoriumId", showtime.AuditoriumId);
-                    command.Parameters.AddWithValue("@StartTime", showtime.StartTime);
-                    command.Parameters.AddWithValue("@BasePrice", showtime.BasePrice);
-
-                    var result = command.ExecuteScalar();
-                    return Convert.ToInt32(result);
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Database error: " + ex.Message, ex);
-            }
-        }
-
-        public bool Update(Showtime showtime)
-        {
-            if (showtime == null)
-            {
-                throw new ArgumentNullException(nameof(showtime));
-            }
-
-            var db = new Db();
-
-            try
-            {
-                using (var connection = db.Open())
-                using (var command = new SqlCommand(
-                    @"UPDATE Showtimes
-                      SET MovieId = @MovieId,
-                          AuditoriumId = @AuditoriumId,
-                          StartTime = @StartTime,
-                          BasePrice = @BasePrice
-                      WHERE Id = @Id", connection))
-                {
-                    command.Parameters.AddWithValue("@MovieId", showtime.MovieId);
-                    command.Parameters.AddWithValue("@AuditoriumId", showtime.AuditoriumId);
-                    command.Parameters.AddWithValue("@StartTime", showtime.StartTime);
-                    command.Parameters.AddWithValue("@BasePrice", showtime.BasePrice);
-                    command.Parameters.AddWithValue("@Id", showtime.Id);
-
-                    var affected = command.ExecuteNonQuery();
-                    return affected > 0;
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Database error: " + ex.Message, ex);
-            }
-        }
-
-        public bool Delete(int id)
-        {
-            var db = new Db();
-
-            try
-            {
-                using (var connection = db.Open())
-                using (var command = new SqlCommand("DELETE FROM Showtimes WHERE Id = @Id", connection))
-                {
-                    command.Parameters.AddWithValue("@Id", id);
-                    var affected = command.ExecuteNonQuery();
-                    return affected > 0;
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Database error: " + ex.Message, ex);
-            }
-        }
-
-        public List<Showtime> Search(string titleLike, DateTime? from, DateTime? to)
-        {
-            var results = new List<Showtime>();
-            var db = new Db();
-
-            try
-            {
-                using (var connection = db.Open())
-                using (var command = new SqlCommand("sp_SearchShowtimes", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@TitleLike", (object)titleLike ?? DBNull.Value);
-                    command.Parameters.AddWithValue("@From", (object?)from ?? DBNull.Value);
-                    command.Parameters.AddWithValue("@To", (object?)to ?? DBNull.Value);
-
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var showtimeId = reader.GetInt32(reader.GetOrdinal("Id"));
-                            var fullShowtime = GetById(showtimeId);
-                            if (fullShowtime != null)
-                            {
-                                results.Add(fullShowtime);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Database error: " + ex.Message, ex);
-            }
-
-            return results;
-        }
-
-        public DataTable GetDetails()
-        {
-            var db = new Db();
-
-            try
-            {
-                using (var connection = db.Open())
-                using (var command = new SqlCommand("SELECT Id, Title, Auditorium, StartTime, BasePrice FROM v_ShowtimeDetails ORDER BY StartTime", connection))
-                using (var adapter = new SqlDataAdapter(command))
-                {
-                    var table = new DataTable();
-                    adapter.Fill(table);
-                    return table;
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new Exception("Database error: " + ex.Message, ex);
-            }
-        }
-
-        private static Showtime MapShowtime(IDataRecord record)
-        {
-            var showtime = new Showtime();
-            showtime.Id = record.GetInt32(record.GetOrdinal("Id"));
-            showtime.MovieId = record.GetInt32(record.GetOrdinal("MovieId"));
-            showtime.AuditoriumId = record.GetInt32(record.GetOrdinal("AuditoriumId"));
-            showtime.StartTime = record.GetDateTime(record.GetOrdinal("StartTime"));
-            showtime.BasePrice = record.GetDecimal(record.GetOrdinal("BasePrice"));
-            return showtime;
-        }
-    }
-}
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
