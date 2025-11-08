@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using System.Drawing;
 using System.Windows.Forms;
 using Cinema.BLL;
 using Cinema.Entities;
@@ -22,6 +23,12 @@ namespace Cinema.WinForms.Forms
         public ShowtimesForm()
         {
             InitializeComponent();
+
+            // Thuộc tính Form từ nhánh main (không ảnh hưởng logic)
+            Text = "Showtimes";
+            StartPosition = FormStartPosition.CenterParent;
+            ClientSize = new Size(800, 600);
+
             Load += ShowtimesForm_Load;
         }
 
@@ -139,6 +146,7 @@ namespace Cinema.WinForms.Forms
             cboAuditorium.SelectedIndex = -1;
             dtpStartTime.Value = DateTime.Now;
             txtBasePrice.Clear();
+
             if (dgvShowtimes.Rows.Count > 0)
             {
                 dgvShowtimes.ClearSelection();
@@ -194,10 +202,9 @@ namespace Cinema.WinForms.Forms
         private void btnAdd_Click(object sender, EventArgs e)
         {
             _selectedShowtimeId = null;
+
             if (!TryGetShowtimeFromInputs(out var showtime))
-            {
                 return;
-            }
 
             var result = _showtimeService.Insert(showtime);
             if (result.Success)
@@ -221,11 +228,10 @@ namespace Cinema.WinForms.Forms
             }
 
             if (!TryGetShowtimeFromInputs(out var showtime))
-            {
                 return;
-            }
 
             showtime.Id = _selectedShowtimeId.Value;
+
             var result = _showtimeService.Update(showtime);
             if (result.Success)
             {
@@ -247,11 +253,14 @@ namespace Cinema.WinForms.Forms
                 return;
             }
 
-            var confirm = MessageBox.Show("Bạn có chắc chắn muốn xóa suất chiếu này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var confirm = MessageBox.Show(
+                "Bạn có chắc chắn muốn xóa suất chiếu này?",
+                "Xác nhận",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
             if (confirm != DialogResult.Yes)
-            {
                 return;
-            }
 
             var result = _showtimeService.Delete(_selectedShowtimeId.Value);
             if (result.Success)
@@ -275,20 +284,14 @@ namespace Cinema.WinForms.Forms
         private void dgvShowtimes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.RowIndex >= dgvShowtimes.Rows.Count)
-            {
                 return;
-            }
 
             var row = dgvShowtimes.Rows[e.RowIndex];
             if (row.Cells["Id"]?.Value == null)
-            {
                 return;
-            }
 
             if (!int.TryParse(row.Cells["Id"].Value.ToString(), out var id))
-            {
                 return;
-            }
 
             var showtime = _showtimes.FirstOrDefault(s => s.Id == id);
             if (showtime == null)

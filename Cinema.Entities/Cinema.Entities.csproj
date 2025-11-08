@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B3E3A977-5E2C-4AF3-8BA8-7C8A1A10DBE4}</ProjectGuid>
+    <ProjectGuid>{DB15B8D6-7482-4C3F-A234-3DDAFD2A72C6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cinema.Entities</RootNamespace>
-    <AssemblyName>Cinema.Entities</AssemblyName>
+    <RootNamespace>Cinema.DAL</RootNamespace>
+    <AssemblyName>Cinema.DAL</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <LangVersion>10.0</LangVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -22,6 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -30,23 +32,29 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Auditorium.cs" />
-    <Compile Include="BaseEntity.cs" />
-    <Compile Include="Booking.cs" />
-    <Compile Include="BookingItem.cs" />
-    <Compile Include="FlatPricing.cs" />
-    <Compile Include="IPricingStrategy.cs" />
-    <Compile Include="Movie.cs" />
-    <Compile Include="PeakHourPricing.cs" />
-    <Compile Include="Person.cs" />
+    <Compile Include="Db.cs" />
+    <Compile Include="AuditoriumDal.cs" />
+    <Compile Include="MovieDal.cs" />
+    <Compile Include="ReportDal.cs" />
+    <Compile Include="ShowtimeDal.cs" />
+    <Compile Include="UserDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Showtime.cs" />
-    <Compile Include="User.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cinema.Entities\Cinema.Entities.csproj">
+      <Project>{B3E3A977-5E2C-4AF3-8BA8-7C8A1A10DBE4}</Project>
+      <Name>Cinema.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
