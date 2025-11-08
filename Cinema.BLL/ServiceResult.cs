@@ -10,23 +10,25 @@ namespace Cinema.BLL
     {
         public bool Success { get; private set; }
         public string Message { get; private set; }
+        public ErrorCode ErrorCode { get; private set; }
         public T Data { get; private set; }
 
-        private ServiceResult(bool success, T data, string message)
+        private ServiceResult(bool success, T data, string message, ErrorCode errorCode)
         {
             Success = success;
             Data = data;
             Message = message ?? string.Empty;
+            ErrorCode = errorCode;
         }
 
         public static ServiceResult<T> Ok(T data, string message = "OK")
         {
-            return new ServiceResult<T>(true, data, message);
+            return new ServiceResult<T>(true, data, message, ErrorCode.None);
         }
 
-        public static ServiceResult<T> Fail(string message)
+        public static ServiceResult<T> Fail(string message, ErrorCode errorCode = ErrorCode.InvalidInput)
         {
-            return new ServiceResult<T>(false, default(T), string.IsNullOrWhiteSpace(message) ? "Operation failed." : message);
+            return new ServiceResult<T>(false, default(T), string.IsNullOrWhiteSpace(message) ? "Operation failed." : message, errorCode);
         }
     }
 }
